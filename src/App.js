@@ -6,6 +6,7 @@ import { Container, Content, Row } from './styles';
 import { useState } from 'react';
 import ButtonK from './components/Button/DEL';
 import ButtonOP from './components/Button/OP';
+import ButtonZ from './components/Button/Z';
 
 
 
@@ -32,12 +33,16 @@ const App = () => {
 
   const handleChange = (param, value) => {
 
-    if ((param === 'firstNumber' || param === 'secondNumber') && calculator[`${param}`].includes('.')) {
-        console.log("HEYYA")
-      setCalculator({
-        ...calculator,
-        [`${param}`]: `${calculator[`${param}`]}${value}`,
-      });
+    if ( (param === 'firstNumber' || param === 'secondNumber') && calculator[`${param}`]!=='0') {
+
+      
+      
+        setCalculator({
+          ...calculator,
+          [`${param}`]: `${calculator[`${param}`]}${value}`,
+        });
+      
+
     } else {
       setCalculator({
         ...calculator,
@@ -84,7 +89,7 @@ const App = () => {
           <ButtonOP label="x" onClick={calculator.firstNumber !== '0' ? () => handleChange("operation", "x") : () => { }} />
           <ButtonOP label="/" onClick={calculator.firstNumber !== '0' ? () => handleChange("operation", "/") : () => { }} />
           <ButtonK label="CE" onClick={() => handleOnClear()} />
-          <Button label="." onClick={calculator.operation === '' ? () => handleChange("firstNumber", `${calculator.firstNumber}.`) : () => handleChange("secondNumber", `${calculator.secondNumber}.`)} />
+          <Button label="." onClick={calculator.operation === '' ? () => handleChange("firstNumber", `.`) : () => handleChange("secondNumber", `.`)} />
         </Row>
         <Row>
           <Button label="7" onClick={calculator.operation === '' ? () => handleChange("firstNumber", "7") : () => handleChange("secondNumber", "7")} />
@@ -104,7 +109,7 @@ const App = () => {
           <Button label="3" onClick={calculator.operation === '' ? () => handleChange("firstNumber", "3") : () => handleChange("secondNumber", "3")} />
           <ButtonK label="=" onClick={() => handleEquals(calculator.operation)} />
         </Row>
-        <Button label="0" onClick={calculator.operation === '' ? () => handleChange("firstNumber", "0") : () => handleChange("secondNumber", "0")} />
+        <ButtonZ label="0" onClick={calculator.operation === '' ? () => handleChange("firstNumber", "0") : () => handleChange("secondNumber", "0")} />
 
       </Content>
     </Container>
