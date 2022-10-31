@@ -33,25 +33,43 @@ const App = () => {
 
   const handleChange = (param, value) => {
 
-    if ( (param === 'firstNumber' || param === 'secondNumber') && calculator[`${param}`]!=='0') {
+    if ((param === 'firstNumber' || param === 'secondNumber')
+      && calculator[`${param}`] !== '0') {
 
-      
-      
-        setCalculator({
-          ...calculator,
-          [`${param}`]: `${calculator[`${param}`]}${value}`,
-        });
-      
 
-    } else {
+
       setCalculator({
         ...calculator,
-        [`${param}`]: value,
+        [`${param}`]: `${calculator[`${param}`]}${value}`,
       });
+
+
+    } else {
+
+
+      if (calculator.result !== null) {
+
+        console.log("calculator")
+        console.log(calculator)
+
+        setCalculator({
+          firstNumber: calculator.result,
+          secondNumber: '0',
+          [`${param}`]: value,
+          result: null
+        })
+      } else {
+        setCalculator({
+          ...calculator,
+          [`${param}`]: value,
+        });
+      }
+
+
+
     }
 
     console.log(calculator)
-
   };
 
 
@@ -81,21 +99,28 @@ const App = () => {
   return (
     <Container>
       <Content>
-        <Input value={calculator.result !== null && calculator.firstNumber !== '0' ? 
-        `${calculator.firstNumber} ${calculator.operation} ${calculator.secondNumber} = ${calculator.result}`
+        <Input value={calculator.result !== null && calculator.firstNumber !== '0' ?
+          `${calculator.firstNumber} ${calculator.operation} ${calculator.secondNumber} = ${calculator.result}`
           : calculator.secondNumber !== '0' ? calculator.secondNumber
             : calculator.firstNumber} />
         <Row>
           <ButtonOP label="x" onClick={calculator.firstNumber !== '0' ? () => handleChange("operation", "x") : () => { }} />
           <ButtonOP label="/" onClick={calculator.firstNumber !== '0' ? () => handleChange("operation", "/") : () => { }} />
           <ButtonK label="CE" onClick={() => handleOnClear()} />
-          <Button label="." onClick={calculator.operation === '' ? () => handleChange("firstNumber", `.`) : () => handleChange("secondNumber", `.`)} />
+          <Button label="." onClick={calculator.result !== null ? () => {
+            setCalculator({
+              firstNumber: `${calculator.result}.`,
+              secondNumber: '0',
+              operation: '',
+              result: null
+            })
+          } : calculator.operation === '' ? () => handleChange("firstNumber", `.`) : () => handleChange("secondNumber", `.`)} />
         </Row>
         <Row>
           <Button label="7" onClick={calculator.operation === '' ? () => handleChange("firstNumber", "7") : () => handleChange("secondNumber", "7")} />
           <Button label="8" onClick={calculator.operation === '' ? () => handleChange("firstNumber", "8") : () => handleChange("secondNumber", "8")} />
           <Button label="9" onClick={calculator.operation === '' ? () => handleChange("firstNumber", "9") : () => handleChange("secondNumber", "9")} />
-          <ButtonOP label="-" onClick={calculator.operation === '' ? () => handleChange("operation", "-") : () => { }} />
+          <ButtonOP label="-" onClick={calculator.firstNumber !== '0' ? () => handleChange("operation", "-") : () => { }} />
         </Row>
         <Row>
           <Button label="4" onClick={calculator.operation === '' ? () => handleChange("firstNumber", "4") : () => handleChange("secondNumber", "4")} />
