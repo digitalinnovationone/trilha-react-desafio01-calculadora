@@ -7,92 +7,120 @@ import { useState } from 'react';
 
 
 const App = () => {
-  const [currentNumber, setCurrentNumber] = useState('0');
-  const [firstNumber, setFirstNumber] = useState('0');
-  const [operation, setOperation] = useState('');
+  const [valorAtual, setValorAtual] = useState('0');
+  const [primeiroValor, setPrimeiroValor] = useState('0');
+  const [operacao, setOperacao] = useState('');
 
-  const handleOnClear = () => {
-    setCurrentNumber('0')
-    setFirstNumber('0')
-    setOperation('')
+  const limpar = () => {
+    setValorAtual('0')
+    setPrimeiroValor('0')
+    setOperacao('')
   };
 
-  const handleAddNumber = (num) => {
-    setCurrentNumber(prev => `${prev === '0' ? '' : prev}${num}`)
+  const adicionarNumero = (num) => {
+    setValorAtual(prev => `${prev === '0' ? '' : prev}${num}`)
   }
 
-  const handleSumNumbers = () => {
-
-    if(firstNumber === '0'){
-        setFirstNumber(String(currentNumber));
-        setCurrentNumber('0')
-        setOperation('+')
-    }else {
-      const sum = Number(firstNumber) + Number(currentNumber);
-      setCurrentNumber(String(sum))
-      setOperation('')
+  const somar = () => {
+    if (primeiroValor === '0') {
+      setPrimeiroValor(String(valorAtual));
+      setValorAtual('0')
+      setOperacao('+')
+    } else {
+      const sum = Number(primeiroValor) + Number(valorAtual);
+      setValorAtual(String(sum))
+      setOperacao('')
     }
 
   }
 
-  const handleMinusNumbers = () => {
-
-    if(firstNumber === '0'){
-        setFirstNumber(String(currentNumber));
-        setCurrentNumber('0')
-        setOperation('-')
-    }else {
-      const sum = Number(firstNumber) - Number(currentNumber);
-      setCurrentNumber(String(sum))
-      setOperation('')
+  const subtrair = () => {
+    if (primeiroValor === '0') {
+      setPrimeiroValor(String(valorAtual));
+      setValorAtual('0')
+      setOperacao('-')
+    } else {
+      const sum = Number(primeiroValor) - Number(valorAtual);
+      setValorAtual(String(sum))
+      setOperacao('')
     }
 
   }
 
-  const handleEquals = () => {
+  const dividir = () => {
+    if (primeiroValor === '0') {
+      setPrimeiroValor(String(valorAtual));
+      setValorAtual('0')
+      setOperacao('/')
+    } else {
+      const sum = Number(primeiroValor) / Number(valorAtual);
+      setValorAtual(String(sum))
+      setOperacao('')
+    }
+  }
 
-    if(firstNumber !== '0' && operation !== '' && currentNumber !== '0'){
-        switch(operation){
-          case '+':
-            handleSumNumbers();
-            break;
-          case '-':
-            handleMinusNumbers();
-            break;
-          default: 
-            break;
-        }
+  const multiplicar = () => {
+    if (primeiroValor === '0') {
+      setPrimeiroValor(String(valorAtual));
+      setValorAtual('0')
+      setOperacao('x')
+    } else {
+      const sum = Number(primeiroValor) * Number(valorAtual);
+      setValorAtual(String(sum))
+      setOperacao('')
+    }
+  }
+
+  const igual = () => {
+
+    if (primeiroValor !== '0' && operacao !== '' && valorAtual !== '0') {
+      switch (operacao) {
+        case '+':
+          somar()
+          break;
+        case '-':
+          subtrair();
+          break;
+        case '/':
+          dividir()
+          break;
+        case 'x':
+          multiplicar();
+          break;
+        default:
+          break;
+      }
     }
 
   }
 
   return (
     <Container>
-        <Input value={currentNumber}/>
-        <Linha>
-          <Button label="x"/>
-          <Button label="/"/>
-          <Button label="c" onClick={handleOnClear}/>
-          <Button label="."/>
-        </Linha>
-        <Linha>
-          <Button label="7" onClick={() => handleAddNumber('7')}/>
-          <Button label="8" onClick={() => handleAddNumber('8')}/>
-          <Button label="9" onClick={() => handleAddNumber('9')}/>
-          <Button label="-" onClick={handleMinusNumbers}/>
-        </Linha>
-        <Linha>
-          <Button label="4" onClick={() => handleAddNumber('4')}/>
-          <Button label="5" onClick={() => handleAddNumber('5')}/>
-          <Button label="6" onClick={() => handleAddNumber('6')}/>
-          <Button label="+" onClick={handleSumNumbers}/>
-        </Linha>
-        <Linha>
-          <Button label="1" onClick={() => handleAddNumber('1')}/>
-          <Button label="2" onClick={() => handleAddNumber('2')}/>
-          <Button label="3" onClick={() => handleAddNumber('3')}/>
-          <Button label="=" onClick={handleEquals}/>
-        </Linha>
+      <Input value={valorAtual} />
+      <Linha>
+        <Button label="x" onClick={multiplicar} />
+        <Button label="/" onClick={dividir} />
+        <Button label="c" onClick={limpar} />
+        <Button label="." />
+      </Linha>
+      <Linha>
+        <Button label="7" onClick={() => adicionarNumero('7')} />
+        <Button label="8" onClick={() => adicionarNumero('8')} />
+        <Button label="9" onClick={() => adicionarNumero('9')} />
+        <Button label="-" onClick={subtrair} />
+      </Linha>
+      <Linha>
+        <Button label="4" onClick={() => adicionarNumero('4')} />
+        <Button label="5" onClick={() => adicionarNumero('5')} />
+        <Button label="6" onClick={() => adicionarNumero('6')} />
+        <Button label="+" onClick={somar} />
+      </Linha>
+      <Linha>
+        <Button label="1" onClick={() => adicionarNumero('1')} />
+        <Button label="2" onClick={() => adicionarNumero('2')} />
+        <Button label="3" onClick={() => adicionarNumero('3')} />
+        <Button label="=" onClick={igual} />
+      </Linha>
     </Container>
   );
 }
