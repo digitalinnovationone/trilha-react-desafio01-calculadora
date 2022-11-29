@@ -1,4 +1,3 @@
-
 import { ButtonContainer } from './styles';
 
 const Button = ({label, onClick}) => {
