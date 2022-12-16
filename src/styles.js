@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
     width: 100%;
@@ -9,11 +9,9 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
 `
-
-
 export const Content = styled.div`
-    background-color: #FFFFFF;
-    width: 50%;
+    background-color: #fff;
+     width: 50%;
 `
 
 export const Row = styled.div`
@@ -21,12 +19,4 @@ export const Row = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-`
-
-export const Column = styled.div`
-    display:flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-`
-
+    `
