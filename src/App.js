@@ -69,7 +69,7 @@ const App = () => {
   return (
     <Container>
       <Content>
-        <Input value={currentNumber}/>
+        <Input value={currentNumber} operation={operation}/>
         <Row>
           <Button label="x"/>
           <Button label="/"/>
